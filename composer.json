@@ -1,0 +1,32 @@
+{
+    "name": "adwlm/cobj_xpath",
+    "type": "typo3-cms-extension",
+    "description": "Extends TYPO3 with a new content object XPATH for flexible querying of XML",
+    "homepage": "http://www.digitale-akademie.de",
+    "authors": [
+        {
+          "name": "Torsten Schrade",
+          "email": "Torsten.Schrade@adwmainz.de",
+          "role": "Developer",
+          "homepage": "http://www.adwmainz.de"
+        }
+    ],
+    "license": ["GPL-2.0+"],
+    "keywords": ["TYPO3", "XML", "XPATH", "Digital Humanities"],
+    "support": {
+        "issues": "https://github.com/digicademy/cobj_xpath/issues"
+    },
+    "version": "1.7.0",
+    "require": {
+        "typo3/cms-core": ">=6.2.0 || <=7.6.99"
+    },
+    "replace": {
+        "cobj_xpath": "self.version",
+        "typo3-ter/cobj_xpath": "self.version"
+    },
+    "autoload": {
+        "psr-4": {
+          "ADWLM\\CobjXpath\\": "Classes/"
+        }
+    }
+}
