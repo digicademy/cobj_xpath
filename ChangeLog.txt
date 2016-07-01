@@ -1,0 +1,50 @@
+# Please also check the activity view at http://forge.typo3.org/projects/extension-cobj_xpath/activity?show_changesets=1
+
+1.7.0
+=====
+* Version compatibility set to 6.2.0-7.9.99
+* Namespace and class refactoring
+
+1.6.0
+=====
+* Version compatibility set to 4.5.0-6.2.99
+* Some corrections in manual
+
+1.5.0
+=====
+* Version compatibility set to 4.5.0-6.1.99
+* ReST based manual
+
+1.4.0
+=====
+* Skipped (a little problem with TER upload)
+
+1.3.0
+=====
+* Skipped (a little problem with TER upload)
+
+1.2.0
+=====
+* New query view helper for Fluid templates
+* New TypoScript property implodeResult
+* New tutorial about XPATH, FLUIDTEMPLATE and XSLT
+* New tutorial about <xpath> TypoTag
+
+1.1.1
+=====
+* Bugfix: Loading XML files from a path could fail in certain circumstances. Fixed the manual.
+
+1.1.0
+=====
+
+* TypoScript change: The former 'source.url' property is dropped and the functionality now fused into the parent property 'source'. This makes it possible to use stdWrap for constructing URLs.
+
+1.0.1
+=====
+
+CGL cleanup, bugfix when loading source from relative path, updated manual. Big thanks to Phillipp Gampe for code review.
+
+1.0.0
+=====
+
+* First public version. Manual included.
