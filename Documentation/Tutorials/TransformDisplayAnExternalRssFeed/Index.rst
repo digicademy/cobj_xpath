@@ -38,7 +38,7 @@ TypoScript's parseFunc. Let's start with the basics:
 
       # before we do the parseFunc stuff, just return the content to see what we've got
       resultObj {
-         cobjNum = 1
+         cObjNum = 1
          1.current = 1
       }
 
