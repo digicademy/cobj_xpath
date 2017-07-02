@@ -10,7 +10,6 @@ Reference
 ---------
 
 This section gives an overview on all TypoScript properties of the XPATH content object. 
-You can also have a look into the README.txt file within the doc folder to get a configuration example.
 
 .. container:: table-row
 
@@ -83,7 +82,7 @@ You can also have a look into the README.txt file within the doc folder to get a
                [...]
             }
 
-         It's possible to extract the namespaces of the XML source with the
+         Its possible to extract the namespaces of the XML source with the
          following subproperties:
 
          **Subproperties:** ::
@@ -158,26 +157,22 @@ You can also have a look into the README.txt file within the doc folder to get a
 
          **xml**
 
-         Returns all matched nodes and their child nodes as XML. Should be used
-         in conjunction with  *.resultObj* or *.directReturn*
+         Returns all matched nodes and their child nodes as XML.
 
          **array**
 
          Converts and returns all nodes matched by the XPATH expression in an
-         array structure. Should be used in conjunction with  *.resultObj* or
-         *.directReturn*
+         array structure.
 
          **json**
 
          Converts and returns all nodes matched by the XPATH expression in json
-         format. Should be used in conjunction with  *.resultObj* or
-         *.directReturn*
+         format.
 
          **string**
 
          Converts and returns all items matched by the XPATH expression as
-         strings (atomic node values). Should be used in conjunction with
-         *.resultObj* or *.directReturn*
+         strings (atomic node values).
 
          **Example:** ::
 
@@ -205,7 +200,7 @@ You can also have a look into the README.txt file within the doc folder to get a
          query (i.e. all matched nodes, attributes, etc). The resultObj works
          similar to the well known TypoScript split property. This makes the
          handling of the returned items very flexible. You can use option
-         split, stdWrap, parseFunc and all the other nice stuff from TSref :)
+         split, stdWrap, parseFunc and all the other nice stuff from TSref
 
          **Example:** ::
 
@@ -273,3 +268,35 @@ You can also have a look into the README.txt file within the doc folder to get a
                   htmlSpecialChars = 1
                }
             }
+
+Next is an example for all TS configuration options with their according data types
+
+::
+
+    my.object = XPATH
+    my.object {
+
+        source [URL / PATH / STRING / stdWrap]
+
+        registerNamespace = [STRING prefix|ns]
+        registerNamespace {
+            getFromSource = [BOOLEAN]
+            getFromSource.debug = 1
+            getFromSource.listNum [TypoScript listNum]
+        }
+
+        expression [STRING + stdWrap]
+
+        return = count|boolean|xml|array|json|string [stdWrap]
+
+        resultObj [TypoScript split]
+        resultObj {
+            cObjNum = 1
+            1.current = 1
+        }
+
+        implodeResult [boolean]
+        implodeResult.token [string + stdWrap]
+
+        stdWrap [stdWrap]
+    }

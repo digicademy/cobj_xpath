@@ -18,7 +18,7 @@ XPATH Content Object
 		cobj_xpath
 
 	:Version:
-		1.7.0
+		1.8.0
 
 	:Language:
 		en
@@ -30,7 +30,7 @@ XPATH Content Object
 		forEditors, forAdmins, forBeginners, forIntermediates
 
 	:Copyright:
-		2015
+		2017
 
 	:Author:
 		Torsten Schrade

@@ -1,9 +1,12 @@
 <?php
+
 namespace ADWLM\CobjXpath\ContentObject;
+
 /***************************************************************
  *  Copyright notice
  *
- *  Copyright (c) 2015 Torsten Schrade <Torsten.Schrade@adwmainz.de>
+ *  Copyright (c) 2017 Torsten Schrade <Torsten.Schrade@adwmainz.de>
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -23,245 +26,257 @@ namespace ADWLM\CobjXpath\ContentObject;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\DebugUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use TYPO3\CMS\Core\TimeTracker\TimeTracker;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 if (!defined('TYPO3_MODE')) {
-	die('Access denied.');
+    die('Access denied.');
 }
 
-class XpathContentObject {
+class XpathContentObject
+{
 
-	/**
-	 * Renders the XPATH content object
-	 *
-	 * @param string $name XPATH
-	 * @param array $conf TypoScript configuration of the cObj
-	 * @param string $TSkey Key in the TypoScript array passed to this function
-	 * @param ContentObjectRenderer $oCObj Reference to the parent class
-	 *
-	 * @return mixed
-	 */
-	public function cObjGetSingleExt($name, array $conf, $TSkey, ContentObjectRenderer &$oCObj) {
+    /**
+     * Renders the XPATH content object
+     *
+     * @param string                $name  XPATH
+     * @param array                 $conf  TypoScript configuration of the cObj
+     * @param string                $TSkey Key in the TypoScript array passed to this function
+     * @param ContentObjectRenderer $oCObj Reference to the parent class
+     *
+     * @return mixed
+     */
+    public function cObjGetSingleExt($name, array $conf, $TSkey, ContentObjectRenderer &$oCObj)
+    {
 
-		$content = '';
+        $content = '';
 
-			// Check if the SimpleXML extension is loaded at all
-		if (!extension_loaded('SimpleXML') || !extension_loaded('libxml')) {
-			$GLOBALS['TT']->setTSlogMessage('The PHP extensions SimpleXML and libxml must be loaded.', 3);
-			return $oCObj->stdWrap($content, $conf['stdWrap.']);
-		}
+        // TimeTracker object is gone in TYPO3 8 but needed to set TS log messages; instantiate in versions >= 8.7
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_branch) >= 8007000 && !is_object($GLOBALS['TT'])) {
+            $GLOBALS['TT'] = GeneralUtility::makeInstance(TimeTracker::class);
+        }
 
-			// Fetch XML data - if source is neither a valid url nor a path, its considered a XML string
-		if (isset($conf['source']) || is_array($conf['source.'])) {
-				// First process the source string with stdWrap
-			$xmlsource = $oCObj->stdWrap($conf['source'], $conf['source.']);
-				// Fetch by (possible) path
-			$path = GeneralUtility::getFileAbsFileName($xmlsource);
-			if (@is_file($path) === TRUE) {
-				$xmlsource = GeneralUtility::getURL($path, 0, FALSE);
-				// Fetch by (possible) URL
-			} elseif (GeneralUtility::isValidUrl($xmlsource) === TRUE) {
-				$xmlsource = GeneralUtility::getURL($xmlsource, 0, FALSE);
-			}
-		} else {
-			$GLOBALS['TT']->setTSlogMessage('Source for XML is not configured.', 3);
-		}
+        // Check if the SimpleXML extension is loaded
+        if (!extension_loaded('SimpleXML') || !extension_loaded('libxml')) {
+            $GLOBALS['TT']->setTSlogMessage('The PHP extensions SimpleXML and libxml must be loaded.', 3);
 
-			// XPATH expression - stdWrap capable
-		if (isset($conf['expression']) || is_array($conf['expression.'])) {
-			$expression = $oCObj->stdWrap($conf['expression'], $conf['expression.']);
-		} else {
-			$GLOBALS['TT']->setTSlogMessage('No XPath expression set.', 3);
-		}
+            return $oCObj->stdWrap($content, $conf['stdWrap.']);
+        }
 
-			// return type - stdWrap capable
-		if (isset($conf['return']) || is_array($conf['return.'])) {
-			$return = $oCObj->stdWrap($conf['return'], $conf['return.']);
-		} else {
-			$return = 'string';
-			$GLOBALS['TT']->setTSlogMessage('No return type for XPATH is set - using string as default.', 2);
-		}
+        // Fetch XML data - if source is neither a valid url nor a path, its considered a XML string
+        if (isset($conf['source']) || is_array($conf['source.'])) {
+            // First process the source string with stdWrap
+            $xmlsource = $oCObj->stdWrap($conf['source'], $conf['source.']);
+            // Fetch by (possible) path
+            $path = GeneralUtility::getFileAbsFileName($xmlsource);
+            if (@is_file($path) === true) {
+                $xmlsource = GeneralUtility::getURL($path, 0, false);
+                // Fetch by (possible) URL
+            } elseif (GeneralUtility::isValidUrl($xmlsource) === true) {
+                $xmlsource = GeneralUtility::getURL($xmlsource, 0, false);
+            }
+        } else {
+            $GLOBALS['TT']->setTSlogMessage('Source for XML is not configured.', 3);
+        }
 
-		if (!empty($xmlsource) && !empty($expression)) {
+        // XPATH expression - stdWrap capable
+        if (isset($conf['expression']) || is_array($conf['expression.'])) {
+            $expression = $oCObj->stdWrap($conf['expression'], $conf['expression.']);
+        } else {
+            $GLOBALS['TT']->setTSlogMessage('No XPath expression set.', 3);
+        }
 
-				// Load a simpleXML object
-			libxml_use_internal_errors(true);
-			$xml = simplexml_load_string($xmlsource);
+        // return type - stdWrap capable
+        if (isset($conf['return']) || is_array($conf['return.'])) {
+            $return = $oCObj->stdWrap($conf['return'], $conf['return.']);
+        } else {
+            $return = 'string';
+            $GLOBALS['TT']->setTSlogMessage('No return type for XPATH is set - using string as default.', 2);
+        }
 
-			if ($xml instanceof \SimpleXMLElement) {
+        if (!empty($xmlsource) && !empty($expression)) {
 
-					// Possible namespaces for query
-				if (isset($conf['registerNamespace.']['getFromSource'])
-						&& (boolean) $conf['registerNamespace.']['getFromSource'] === TRUE) {
-					$namespaces = array_merge($xml->getDocNamespaces(), $xml->getNamespaces());
-						// Print namespaces
-					if (isset($conf['registerNamespace.']['getFromSource.']['debug'])
-						&& (boolean) $conf['registerNamespace.']['getFromSource.']['debug'] === TRUE) {
-						DebugUtility::debug($namespaces);
-					}
-					if (count($namespaces) > 0
-							&& isset($conf['registerNamespace.']['getFromSource.']['listNum'])
-							&& is_array($conf['registerNamespace.']['getFromSource.']['listNum.'])) {
-						$listNumData = array();
-						foreach ($namespaces as $prefix => $ns) {
-							$listNumData[] = $prefix . '|' . $ns;
-						}
-						$listNumConf['listNum'] = $conf['registerNamespace.']['getFromSource.']['listNum'];
-						if (is_array($conf['registerNamespace.']['getFromSource.']['listNum.'])) {
-							$listNumConf['listNum.'] = $conf['registerNamespace.']['getFromSource.']['listNum.'];
-						}
-						$listNumConf['listNum.']['splitChar'] = ',';
-						$conf['registerNamespace'] = $oCObj->stdWrap_listNum(implode(',', $listNumData), $listNumConf);
-					} else {
-						$conf['registerNamespace'] = '';
-					}
-				}
+            // Load a simpleXML object
+            libxml_use_internal_errors(true);
+            $xml = simplexml_load_string($xmlsource);
 
-				if (isset($conf['registerNamespace'])) {
-					$namespace = GeneralUtility::trimExplode('|', $conf['registerNamespace'], 1);
-						// mind the bug: in PHP 5.3.2 isValidUrl can sometimes fail even if a valid url is provided;
-						// using this old PHP version can in some cases lead to namespaces not being registered;
-						// details: http://forge.typo3.org/issues/42015
-						// https://bugs.php.net/bug.php?id=51192
-					if (count($namespace) == 2 && GeneralUtility::isValidUrl($namespace[1])) {
-						$xml->registerXPathNamespace($namespace[0], $namespace[1]);
-					}
-				}
+            if ($xml instanceof \SimpleXMLElement) {
 
-					// Perform XPATH query
-				$result = $xml->xpath($expression);
+                // Possible namespaces for query
+                if (isset($conf['registerNamespace.']['getFromSource'])
+                    && (boolean)$conf['registerNamespace.']['getFromSource'] === true
+                ) {
+                    $namespaces = array_merge($xml->getDocNamespaces(), $xml->getNamespaces());
+                    // Print namespaces
+                    if (isset($conf['registerNamespace.']['getFromSource.']['debug'])
+                        && (boolean)$conf['registerNamespace.']['getFromSource.']['debug'] === true
+                    ) {
+                        DebugUtility::debug($namespaces);
+                    }
+                    if (count($namespaces) > 0
+                        && isset($conf['registerNamespace.']['getFromSource.']['listNum'])
+                        && is_array($conf['registerNamespace.']['getFromSource.']['listNum.'])
+                    ) {
+                        $listNumData = array();
+                        foreach ($namespaces as $prefix => $ns) {
+                            $listNumData[] = $prefix . '|' . $ns;
+                        }
+                        $listNumConf['listNum'] = $conf['registerNamespace.']['getFromSource.']['listNum'];
+                        if (is_array($conf['registerNamespace.']['getFromSource.']['listNum.'])) {
+                            $listNumConf['listNum.'] = $conf['registerNamespace.']['getFromSource.']['listNum.'];
+                        }
+                        $listNumConf['listNum.']['splitChar'] = ',';
+                        $conf['registerNamespace'] = $oCObj->stdWrap_listNum(implode(',', $listNumData), $listNumConf);
+                    } else {
+                        $conf['registerNamespace'] = '';
+                    }
+                }
 
-					// If there was a result
-				if (is_array($result) && count($result) > 0) {
+                if (isset($conf['registerNamespace'])) {
+                    $namespace = GeneralUtility::trimExplode('|', $conf['registerNamespace'], 1);
+                    if (count($namespace) == 2 && GeneralUtility::isValidUrl($namespace[1])) {
+                        $xml->registerXPathNamespace($namespace[0], $namespace[1]);
+                    }
+                }
 
-						// Switch return type
-					switch ($return) {
+                // Perform XPATH query
+                $result = $xml->xpath($expression);
 
-						case 'count':
-							$result = count($result);
-							break;
+                // If there was a result
+                if (is_array($result) && count($result) > 0) {
 
-						case 'boolean':
-							$result = TRUE;
-							break;
+                    // Switch return type
+                    switch ($return) {
 
-						case 'xml':
-							foreach ($result as $key => $value) {
-								$result[$key] = $value->asXML();
-							}
-							break;
+                        case 'count':
+                            $result = count($result);
+                            break;
 
-						case 'array':
-							foreach ($result as $key => $value) {
-									// convert to real PHP array; idea from soloman at http://www.php.net/manual/en/book.simplexml.php
-								$json = json_encode($value);
-								$result[$key] = json_decode($json, TRUE);
-							}
-							break;
+                        case 'boolean':
+                            $result = true;
+                            break;
 
-						case 'json':
-							foreach ($result as $key => $value) {
-								$result[$key] = json_encode($value);
-							}
-							break;
+                        case 'xml':
+                            foreach ($result as $key => $value) {
+                                $result[$key] = $value->asXML();
+                            }
+                            break;
 
-						case 'string':
-						default:
-							foreach ($result as $key => $value) {
-								$result[$key] = (string) $value;
-							}
-							break;
-					}
+                        case 'array':
+                            foreach ($result as $key => $value) {
+                                // convert to real PHP array; idea from soloman at http://www.php.net/manual/en/book.simplexml.php
+                                $json = json_encode($value);
+                                $result[$key] = json_decode($json, true);
+                            }
+                            break;
 
-						// Possibility to return the result unprocessed (for example to a Fluid view helper or other calls from outside TypoScript)
-					if ($conf['returnRaw'] == 1) {
-						return $result;
-					}
+                        case 'json':
+                            foreach ($result as $key => $value) {
+                                $result[$key] = json_encode($value);
+                            }
+                            break;
 
-						// in case of a multi value result, provide further TypoScript processing with resultObj or implodeResult
-					if ($return !== 'count' && $return !== 'boolean') {
+                        case 'string':
+                        default:
+                            foreach ($result as $key => $value) {
+                                $result[$key] = (string)$value;
+                            }
+                            break;
+                    }
 
-							// resultObj
-						if (is_array($conf['resultObj.']) && !$conf['implodeResult']) {
-								// write the result array to this cObj's data and TSFE (for array access with TSFE:cObj|data)
-							$originalRecord = $oCObj->data;
-							$originalTSFERecord = $GLOBALS['TSFE']->cObj->data;
-							$oCObj->data = $result;
-							$GLOBALS['TSFE']->cObj->data = $result;
-								// use split for TypoScript iteration through the result
-							$conf['resultObj.']['token'] = '###COBJ_XPATH###';
-							$content = $oCObj->splitObj(implode('###COBJ_XPATH###', $result), $conf['resultObj.']);
-								// restore original data
-							$oCObj->data = $originalRecord;
-							$GLOBALS['TSFE']->cObj->data = $originalTSFERecord;
+                    // Possibility to return the result unprocessed (for example to a Fluid view helper or other calls from outside TypoScript)
+                    if ($conf['returnRaw'] == 1) {
+                        return $result;
+                    }
 
-							// implodeResult
-						} elseif ($conf['implodeResult'] == 1) {
+                    // in case of a multi value result, provide further TypoScript processing with resultObj or implodeResult
+                    if ($return !== 'count' && $return !== 'boolean') {
 
-							if (is_array($conf['implodeResult.'])) {
-								$token = $oCObj->stdWrap($conf['implodeResult.']['token'], $conf['implodeResult.']['token.']);
-							} else {
-								$token = '###COBJ_XPATH###';
-							}
-							$content = implode($token, $result);
+                        // resultObj
+                        if (is_array($conf['resultObj.']) && !$conf['implodeResult']) {
+                            // write the result array to this cObj's data and TSFE (for array access with TSFE:cObj|data)
+                            $originalRecord = $oCObj->data;
+                            $originalTSFERecord = $GLOBALS['TSFE']->cObj->data;
+                            $oCObj->data = $result;
+                            $GLOBALS['TSFE']->cObj->data = $result;
+                            // use split for TypoScript iteration through the result
+                            $conf['resultObj.']['token'] = '###COBJ_XPATH###';
+                            $content = $oCObj->splitObj(implode('###COBJ_XPATH###', $result), $conf['resultObj.']);
+                            // restore original data
+                            $oCObj->data = $originalRecord;
+                            $GLOBALS['TSFE']->cObj->data = $originalTSFERecord;
 
-						} else {
-							$GLOBALS['TT']->setTSlogMessage('Handling of multivalue result not configured. Please use resultObj or implodeResult', 2);
-						}
-						// all other cases
-					} else {
-						$content = $result;
-					}
+                            // implodeResult
+                        } elseif ($conf['implodeResult'] == 1) {
 
-				} else {
-					$GLOBALS['TT']->setTSlogMessage('The XPath query returned no results.', 2);
-				}
+                            if (is_array($conf['implodeResult.'])) {
+                                $token = $oCObj->stdWrap($conf['implodeResult.']['token'],
+                                    $conf['implodeResult.']['token.']);
+                            } else {
+                                $token = '###COBJ_XPATH###';
+                            }
+                            $content = implode($token, $result);
 
-			} else {
-				$errors = libxml_get_errors();
-				foreach ($errors as $error) {
-					$GLOBALS['TT']->setTSlogMessage('XML exception: ' . $this->getXmlErrorCode($error), 3);
-				}
-				libxml_clear_errors();
-			}
+                        } else {
+                            $GLOBALS['TT']->setTSlogMessage('Handling of multivalue result not configured. Please use resultObj or implodeResult', 2);
+                        }
+                        // all other cases
+                    } else {
+                        $content = $result;
+                    }
 
-		} else {
-			$GLOBALS['TT']->setTSlogMessage('The configured XML source did not return any data or no XPATH expression was set.', 3);
-		}
-		return $oCObj->stdWrap($content, $conf['stdWrap.']);
-	}
+                } else {
+                    $GLOBALS['TT']->setTSlogMessage('The XPath query returned no results.', 2);
+                }
 
-	/**
-	 * Returns XML error codes for the TSFE admin panel.
-	 * Function inspired by http://www.php.net/manual/en/function.libxml-get-errors.php
-	 *
-	 * @param \LibXMLError $error
-	 * @return string
-	 */
-	private function getXmlErrorCode(\LibXMLError $error) {
-		$errormessage = '';
+            } else {
+                $errors = libxml_get_errors();
+                foreach ($errors as $error) {
+                    $GLOBALS['TT']->setTSlogMessage('XML exception: ' . $this->getXmlErrorCode($error), 3);
+                }
+                libxml_clear_errors();
+            }
 
-		switch ($error->level) {
-			case LIBXML_ERR_WARNING:
-				$errormessage .= 'Warning ' . $error->code . ': ';
-				break;
-			case LIBXML_ERR_ERROR:
-				$errormessage .= 'Error ' . $error->code . ': ';
-				break;
-			case LIBXML_ERR_FATAL:
-				$errormessage .= 'Fatal error ' . $error->code . ': ';
-				break;
-		}
+        } else {
+            $GLOBALS['TT']->setTSlogMessage('The configured XML source did not return any data or no XPATH expression was set.', 3);
+        }
 
-		$errormessage .= trim($error->message) . ' - Line: ' . $error->line . ', Column:' . $error->column;
+        return $oCObj->stdWrap($content, $conf['stdWrap.']);
+    }
 
-		if ($error->file) {
-			$errormessage .= ' - File: ' . $error->file;
-		}
+    /**
+     * Returns XML error codes for the TSFE admin panel.
+     * Function inspired by http://www.php.net/manual/en/function.libxml-get-errors.php
+     *
+     * @param \LibXMLError $error
+     *
+     * @return string
+     */
+    private function getXmlErrorCode(\LibXMLError $error)
+    {
+        $errormessage = '';
 
-		return $errormessage;
-	}
+        switch ($error->level) {
+            case LIBXML_ERR_WARNING:
+                $errormessage .= 'Warning ' . $error->code . ': ';
+                break;
+            case LIBXML_ERR_ERROR:
+                $errormessage .= 'Error ' . $error->code . ': ';
+                break;
+            case LIBXML_ERR_FATAL:
+                $errormessage .= 'Fatal error ' . $error->code . ': ';
+                break;
+        }
+
+        $errormessage .= trim($error->message) . ' - Line: ' . $error->line . ', Column:' . $error->column;
+
+        if ($error->file) {
+            $errormessage .= ' - File: ' . $error->file;
+        }
+
+        return $errormessage;
+    }
 }
-?>

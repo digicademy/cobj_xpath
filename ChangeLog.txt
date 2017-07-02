@@ -1,4 +1,10 @@
-# Please also check the activity view at http://forge.typo3.org/projects/extension-cobj_xpath/activity?show_changesets=1
+1.8.0
+=====
+* Version compatibility set to 7.6.0-8.7.99
+* Drop old class migrations
+* PSR refactoring and code compliance
+* Update manual
+* CKEditor plugin for <xpath> TypoTag in TYPO3 8.7+
 
 1.7.0
 =====

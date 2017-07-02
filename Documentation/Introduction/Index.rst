@@ -26,7 +26,7 @@ Features
 
 - Works with database fields, files or external XML resources
 
-- Get values from TYPO3 Flexforms or Gridelements with TypoScript
+- Get values from TYPO3 Flexforms, Dynamic Content Elements (DCE) or Gridelements (GE) with TypoScript
 
 - Offers different return formats for the results matched by the XPath query
 

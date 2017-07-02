@@ -10,12 +10,9 @@ Transform & display an external RSS feed
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 It is quite common to display content from an external XML feed. There
-are many good extensions in TER that cater for this need. Most of the
-time they take the approach to import the external source into the
-TYPO3 database (for example into tt\_news which is then used for
-record display). When you just want to retrieve, parse, format and
-display a feed the XPATH content object can step in as "TypoScript
-only" solution.
+are many good extensions in TER for this. Most of them take the approach
+to import the external source into the TYPO3 database. The XPATH content
+object can serve as "TypoScript only" solution.
 
 Say we want to display the official TYPO3 newsfeed from
 http://news.typo3.org/rss.xml on our website. Using the XPATH object,
@@ -202,7 +199,7 @@ The next step shows you the finished setup:
       }
    }
 
-Admittedly, this is a bit of TypoScript ;) On the other hand, it only
+Admittedly, this is quite a bit of TypoScript. On the other hand it only
 uses standard functionality and at the same time demonstrates how you
 can “chain” XPATH objects to flexibly work on your XML data.
 

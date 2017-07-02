@@ -12,11 +12,9 @@ Installation
 Requirements
 ^^^^^^^^^^^^
 
-- You need at least PHP 5.3+
+- PHP with libxml and SimpleXML enabled
 
-- You need libxml and SimpleXML enabled
-
-- The extension has been tested on TYPO3 versions 6.2 to 7.x
+- The extension has been tested on TYPO3 versions 7.6 to 8.7
 
 Installation
 ^^^^^^^^^^^^
