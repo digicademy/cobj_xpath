@@ -12,16 +12,16 @@ FLUIDTEMPLATE, XPATH & XSLT
 This tutorial will show you how to display a TEI encoded XML file on
 your website using the XPATH content object and a FLUIDTEMPLATE. You
 will learn how to select parts of the XML structure with XPATH and
-assign them as variables to your FLUIDTEMPLATE. Further you will see
-how the Xpath view helper for Fluid works. And finally we will have a
-quick look at the extension `XSLT content object
+assign them as variables to your FLUIDTEMPLATE. Additionally you will see
+how the XPATH view helper for Fluid works. And finally we will have a
+quick look at the extension `XSLT Content Object
 <http://typo3.org/extensions/repository/view/cobj_xslt>`_ that can
 be used to transform large chunks of XML for display on your TYPO3
 website. Before we start, please make sure that you have installed
 Extbase, Fluid and cobj\_xslt.
 
-As an example text we would like to display Edgar Allan Poe's "Tales"
-on our website. The book is offered as a TEI encoded XML file at
+As example we will display Edgar Allan Poe's "Tales" on our TYPO3 website.
+The book is offered as a TEI XML file at
 `http://docsouth.unc.edu/southlit/poe/poe.xml
 <http://docsouth.unc.edu/southlit/poe/poe.xml>`_ .
 
@@ -50,7 +50,7 @@ Let's have a look at the XML structure and consider some basic things:
   we can display the according tale to the toc item that was clicked
   (basically the same as a "single view")
 
-- So basically we have a "listview" (author, title, table of contents)
+- We have a "listview" (author, title, table of contents)
   and a "singleview" (author, title, single story). This should be
   doable with a combination of a <f:if> Fluid condition and a TypoScript
   condition. As a trigger for list- and singleview we will use a custom
@@ -141,7 +141,7 @@ topic, have a read of the following ML thread:
 `http://lists.typo3.org/pipermail/typo3-dev/2011-January/042417.html
 <http://lists.typo3.org/pipermail/typo3-dev/2011-January/042417.html>`_ ).
 
-For this reason version 1.2.0 of cobj\_xpath provides a Xpath query
+The XPATH content object provides an XPATH query
 view helper that can be used inside Fluid templates to execute
 queries. The view helper passes back the "raw" result. This makes it
 possible to get arrays or other multi value results directly within
