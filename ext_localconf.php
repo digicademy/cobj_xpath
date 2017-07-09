@@ -8,3 +8,6 @@ $TYPO3_CONF_VARS['SC_OPTIONS']['tslib/class.tslib_content.php']['cObjTypeAndClas
     0 => 'XPATH',
     1 => 'EXT:cobj_xpath/Classes/ContentObject/XpathContentObject.php:ADWLM\CobjXpath\ContentObject\XpathContentObject',
 );
+
+// define example RTE preset for XPATH TypoTag in TYPO3 8.7
+$GLOBALS['TYPO3_CONF_VARS']['RTE']['Presets']['cobj_xpath'] = 'EXT:cobj_xpath/Configuration/RTE/Default.yaml';
