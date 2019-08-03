@@ -1,5 +1,5 @@
 {
-    "name": "adwlm/cobj_xpath",
+    "name": "digicademy/cobj_xpath",
     "type": "typo3-cms-extension",
     "description": "Extends TYPO3 with a new content object XPATH for flexible querying of XML",
     "homepage": "http://www.digitale-akademie.de",
@@ -16,7 +16,7 @@
     "support": {
         "issues": "https://github.com/digicademy/cobj_xpath/issues"
     },
-    "version": "1.8.0",
+    "version": "1.8.1",
     "require": {
         "typo3/cms-core": ">=7.6.0 || <=8.7.99"
     },
