@@ -16,9 +16,14 @@
     "support": {
         "issues": "https://github.com/digicademy/cobj_xpath/issues"
     },
-    "version": "1.8.1",
+    "version": "1.9.0",
     "require": {
-        "typo3/cms-core": ">=7.6.0 || <=8.7.99"
+        "typo3/cms-core": ">=8.7.0 || <=9.5.99",
+        "ext-libxml": "*",
+        "ext-json": "*",
+        "ext-simplexml": "*",
+        "ext-dom": "*",
+        "ext-xsl": "*"
     },
     "replace": {
         "cobj_xpath": "self.version",
@@ -26,7 +31,14 @@
     },
     "autoload": {
         "psr-4": {
-          "ADWLM\\CobjXpath\\": "Classes/"
+          "Digicademy\\CobjXpath\\": "Classes/"
+        }
+    },
+    "extra": {
+        "typo3/class-alias-loader": {
+            "class-alias-maps": [
+                "Migrations/Code/ClassAliasMap.php"
+            ]
         }
     }
 }

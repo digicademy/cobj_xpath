@@ -26,7 +26,7 @@ Features
 
 - Works with database fields, files or external XML resources
 
-- Get values from TYPO3 Flexforms, Dynamic Content Elements (DCE) or Gridelements (GE) with TypoScript
+- Get values from TYPO3 Flexforms with TypoScript
 
 - Offers different return formats for the results matched by the XPath query
 
@@ -40,6 +40,11 @@ Have a look at the tutorials in this manual.
 Credits
 ^^^^^^^
 
-This extension has been developed within the context of the `Digital Humanities
-<http://www.digitale-akademie.de/projekte/matrix.html>`_ projects
-of the `Digital Academy Mainz <http://www.digitale-akademie.de/>`_.
+This extension is developed by the `Digital Academy <http://www.adwmainz.de/digitalitaet/digitale-akademie.html>`_
+of the `Academy of Sciences and Literature | Mainz <http://www.adwmainz.de>`_.
+
+Join development
+^^^^^^^^^^^^^^^^
+
+Development takes place on `Github <https://github.com/digicademy/cobj_xpath>`_.
+You are very welcome to join and submit pull requests.

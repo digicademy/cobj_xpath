@@ -1,18 +1,18 @@
 <?php
 
-namespace ADWLM\CobjXpath\ViewHelpers;
+namespace Digicademy\CobjXpath\ViewHelpers;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2017 Torsten Schrade <Torsten.Schrade@adwmainz.de>
+ *  Torsten Schrade <Torsten.Schrade@adwmainz.de>, Academy of Sciences and Literature | Mainz
  *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
  *  free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
+ *  the Free Software Foundation; either version 3 of the License, or
  *  (at your option) any later version.
  *
  *  The GNU General Public License can be found at
@@ -29,7 +29,7 @@ namespace ADWLM\CobjXpath\ViewHelpers;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use ADWLM\CobjXpath\ContentObject\XpathContentObject;
+use Digicademy\CobjXpath\ContentObject\XpathContentObject;
 
 /**
  * Usage:
@@ -64,18 +64,28 @@ class QueryViewHelper extends AbstractViewHelper
     }
 
     /**
+     * Initialize ViewHelper arguments
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('source', 'null', 'source', false, null);
+        $this->registerArgument('expression', 'string', 'expression', false, '');
+        $this->registerArgument('return', 'string', 'return', false, 'string');
+    }
+
+    /**
      * Fluid view helper wrapper for the XPATH content object. Calls the content object class directly. This makes it possible to
      * return multi value results (arrays) directly from the Fluid template. To achieve a result not automatically converted to string
      * "returnRaw" is always set to 1. Also see the inject method above and the direct instantiation of the XPATH cobj there.
      *
-     * @param mixed $source
-     * @param string $expression
-     * @param string $return
-     *
      * @return mixed
      */
-    public function render($source = null, $expression = '', $return = 'string')
+    public function render()
     {
+        $source = $this->arguments['source'];
+        $expression = $this->arguments['expression'];
+        $return = $this->arguments['return'];
 
         if ($source === null) {
             $source = $this->renderChildren();

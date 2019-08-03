@@ -14,44 +14,32 @@ XPATH Content Object
 
 .. only:: html
 
-	:Classification:
-		cobj_xpath
-
 	:Version:
-		1.8.0
+		|release|
 
 	:Language:
 		en
 
 	:Description:
-		Manual for the extension cobj_xpath
+		Manual for the extension cobj_path
 
 	:Keywords:
-		forEditors, forAdmins, forBeginners, forIntermediates
+		XML, XPATH
 
 	:Copyright:
-		2017
+		2012-2019
 
 	:Author:
 		Torsten Schrade
 
-	:Email:
-		Torsten.Schrade@adwmainz.de
+	:Institution:
+		Academy of Sciences and Literature | Mainz
 
 	:License:
-		This document is published under the Open Content License
-		available from http://www.opencontent.org/opl.shtml
+		`CC BY 4.0 <https://creativecommons.org/licenses/by/4.0/>`_
 
 	:Rendered:
 		|today|
-
-	The content of this document is related to TYPO3,
-	a GNU/GPL CMS/Framework available from `www.typo3.org <http://www.typo3.org/>`_.
-
-	**Other versions of this document**
-
-	:PDF:
-		http://docs.typo3.org/typo3cms/extensions/cobj_xpath/latest/_pdf/
 
 	**Table of Contents**
 

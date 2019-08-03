@@ -152,7 +152,7 @@ of our template:
 
 ::
 
-   {namespace xpath = ADWLM\CobjXpath\ViewHelpers}
+   {namespace xpath = Digicademy\CobjXpath\ViewHelpers}
 
 Next we construct a <f:for> loop in the <f:else> branch and set up the
 Xpath query:

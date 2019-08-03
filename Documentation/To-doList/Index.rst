@@ -9,5 +9,4 @@
 To-Do list
 ----------
 
-Feature requests on the `TYPO3 Forge <http://forge.typo3.org/projects
-/extension-cobj_xpath/issues>`_ are always welcome.
+`Feature requests on GitHub <https://github.com/digicademy/cobj_xpath/issues>`_ are always welcome.

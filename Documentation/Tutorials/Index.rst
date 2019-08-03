@@ -16,7 +16,6 @@ Tutorials
 	:glob:
 
 	XpathAndStdwrap/Index
-	UsingXpathToReadFlexformValues/Index
 	TransformDisplayAnExternalRssFeed/Index
 	FluidtemplateXpathXslt/Index
 	XpathTypotag/Index

@@ -9,5 +9,4 @@
 Known problems
 --------------
 
-You can report bugs at our `TYPO3 Forge bugtracker
-<http://forge.typo3.org/projects/extension-cobj_xpath/issues>`_ .
+If you find any bugs, please report them on `GitHub <https://github.com/digicademy/cobj_xpath/issues>`_ .
