@@ -1,5 +1,7 @@
 # XPATH Content Object
 
+[![DOI](https://zenodo.org/badge/62417152.svg)](https://zenodo.org/badge/latestdoi/62417152)
+
 ## About
 
 This TYPO3 extension adds a new content object XPATH to the standard TypoScript cObjects. The XPATH cObject allows for a flexible, TypoScript based treatment of any kind of XML data. The data can be read from database fields, files or external resources.
