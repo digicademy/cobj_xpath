@@ -26,6 +26,7 @@ namespace Digicademy\CobjXpath\ContentObject;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Frontend\ContentObject\AbstractContentObject;
 use TYPO3\CMS\Core\Utility\DebugUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
@@ -36,21 +37,23 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
-class XpathContentObject
+class XpathContentObject extends AbstractContentObject
 {
 
     /**
      * Renders the XPATH content object
      *
-     * @param string                $name  XPATH
      * @param array                 $conf  TypoScript configuration of the cObj
-     * @param string                $TSkey Key in the TypoScript array passed to this function
-     * @param ContentObjectRenderer $oCObj Reference to the parent class
      *
-     * @return mixed
+     * @return string
      */
-    public function cObjGetSingleExt($name, array $conf, $TSkey, ContentObjectRenderer &$oCObj)
+    public function cObjGetSingleExt(array $conf)
     {
+        if (!is_array($conf)) {
+            return '';
+        }
+
+        $ContentObjectRenderer = $this->getContentObjectRenderer();
 
         $content = '';
 
@@ -63,13 +66,13 @@ class XpathContentObject
         if (!extension_loaded('SimpleXML') || !extension_loaded('libxml')) {
             $GLOBALS['TT']->setTSlogMessage('The PHP extensions SimpleXML and libxml must be loaded.', 3);
 
-            return $oCObj->stdWrap($content, $conf['stdWrap.']);
+            return $ContentObjectRenderer->stdWrap($content, $conf['stdWrap.']);
         }
 
         // Fetch XML data - if source is neither a valid url nor a path, its considered a XML string
         if (isset($conf['source']) || is_array($conf['source.'])) {
             // First process the source string with stdWrap
-            $xmlsource = $oCObj->stdWrap($conf['source'], $conf['source.']);
+            $xmlsource = $ContentObjectRenderer->stdWrap($conf['source'], $conf['source.']);
             // Fetch by (possible) path
             $path = GeneralUtility::getFileAbsFileName($xmlsource);
             if (@is_file($path) === true) {
@@ -84,14 +87,14 @@ class XpathContentObject
 
         // XPATH expression - stdWrap capable
         if (isset($conf['expression']) || is_array($conf['expression.'])) {
-            $expression = $oCObj->stdWrap($conf['expression'], $conf['expression.']);
+            $expression = $ContentObjectRenderer->stdWrap($conf['expression'], $conf['expression.']);
         } else {
             $GLOBALS['TT']->setTSlogMessage('No XPath expression set.', 3);
         }
 
         // return type - stdWrap capable
         if (isset($conf['return']) || is_array($conf['return.'])) {
-            $return = $oCObj->stdWrap($conf['return'], $conf['return.']);
+            $return = $ContentObjectRenderer->stdWrap($conf['return'], $conf['return.']);
         } else {
             $return = 'string';
             $GLOBALS['TT']->setTSlogMessage('No return type for XPATH is set - using string as default.', 2);
@@ -129,7 +132,7 @@ class XpathContentObject
                             $listNumConf['listNum.'] = $conf['registerNamespace.']['getFromSource.']['listNum.'];
                         }
                         $listNumConf['listNum.']['splitChar'] = ',';
-                        $conf['registerNamespace'] = $oCObj->stdWrap_listNum(implode(',', $listNumData), $listNumConf);
+                        $conf['registerNamespace'] = $ContentObjectRenderer->stdWrap_listNum(implode(',', $listNumData), $listNumConf);
                     } else {
                         $conf['registerNamespace'] = '';
                     }
@@ -198,22 +201,22 @@ class XpathContentObject
                         // resultObj
                         if (is_array($conf['resultObj.']) && !$conf['implodeResult']) {
                             // write the result array to this cObj's data and TSFE (for array access with TSFE:cObj|data)
-                            $originalRecord = $oCObj->data;
+                            $originalRecord = $ContentObjectRenderer->data;
                             $originalTSFERecord = $GLOBALS['TSFE']->cObj->data;
-                            $oCObj->data = $result;
+                            $ContentObjectRenderer->data = $result;
                             $GLOBALS['TSFE']->cObj->data = $result;
                             // use split for TypoScript iteration through the result
                             $conf['resultObj.']['token'] = '###COBJ_XPATH###';
-                            $content = $oCObj->splitObj(implode('###COBJ_XPATH###', $result), $conf['resultObj.']);
+                            $content = $ContentObjectRenderer->splitObj(implode('###COBJ_XPATH###', $result), $conf['resultObj.']);
                             // restore original data
-                            $oCObj->data = $originalRecord;
+                            $ContentObjectRenderer->data = $originalRecord;
                             $GLOBALS['TSFE']->cObj->data = $originalTSFERecord;
 
                             // implodeResult
                         } elseif ($conf['implodeResult'] == 1) {
 
                             if (is_array($conf['implodeResult.'])) {
-                                $token = $oCObj->stdWrap($conf['implodeResult.']['token'],
+                                $token = $ContentObjectRenderer->stdWrap($conf['implodeResult.']['token'],
                                     $conf['implodeResult.']['token.']);
                             } else {
                                 $token = '###COBJ_XPATH###';
@@ -244,7 +247,7 @@ class XpathContentObject
             $GLOBALS['TT']->setTSlogMessage('The configured XML source did not return any data or no XPATH expression was set.', 3);
         }
 
-        return $oCObj->stdWrap($content, $conf['stdWrap.']);
+        return $ContentObjectRenderer->stdWrap($content, $conf['stdWrap.']);
     }
 
     /**
