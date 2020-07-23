@@ -47,7 +47,7 @@ class XpathContentObject extends AbstractContentObject
      *
      * @return string
      */
-    public function cObjGetSingleExt(array $conf)
+    public function render(array $conf)
     {
         if (!is_array($conf)) {
             return '';
