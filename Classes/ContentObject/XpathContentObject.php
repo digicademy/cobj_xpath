@@ -47,7 +47,7 @@ class XpathContentObject extends AbstractContentObject
      *
      * @return string
      */
-    public function render(array $conf)
+    public function render($conf = [])
     {
         if (!is_array($conf)) {
             return '';
