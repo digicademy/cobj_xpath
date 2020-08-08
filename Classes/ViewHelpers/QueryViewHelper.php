@@ -26,7 +26,7 @@ namespace Digicademy\CobjXpath\ViewHelpers;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use Digicademy\CobjXpath\ContentObject\XpathContentObject;
@@ -60,7 +60,7 @@ class QueryViewHelper extends AbstractViewHelper
         $this->configurationManager = $configurationManager;
         $this->contentObject = $this->configurationManager->getContentObject();
         $this->contentObject->start(array(), '');
-        $this->contentObject->cObjHookObjectsArr['XPATH'] = GeneralUtility::makeInstance(XpathContentObject::class);
+        $this->contentObject->cObjHookObjectsArr['XPATH'] = GeneralUtility::makeInstance(XpathContentObject::class, $this->contentObject);
     }
 
     /**
@@ -98,7 +98,7 @@ class QueryViewHelper extends AbstractViewHelper
             'returnRaw' => 1
         );
 
-        $content = $this->contentObject->cObjHookObjectsArr['XPATH']->cObjGetSingleExt('XPATH', $configuration, '', $this->contentObject);
+        $content = $this->contentObject->cObjHookObjectsArr['XPATH']->render($configuration);
 
         return $content;
     }
