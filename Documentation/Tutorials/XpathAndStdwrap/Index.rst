@@ -44,7 +44,7 @@ TypoScript:
 
      10 = XPATH
      10 {
-        source.cObject = FILE
+        source.cObject = FLUIDTEMPLATE
         source.cObject.file = fileadmin/xpath/collection.xml
 
         expression = //title
