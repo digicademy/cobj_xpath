@@ -165,7 +165,7 @@ Xpath query:
          <ul>
             <f:for each="{xpath:query(source: 'fileadmin/xpath/poe.xml', expression: '//div1[@type=\'contents\']/list/item', return: 'string')}" as="item" iteration="key">
                <li>
-                  <f:link.action additionalParams="{tale : key.cycle}">{item}</f:link.action>
+                  <f:link.typolink parameter="t3://page?uid=###YOUR_PID###" additionalParams="&tale={key.cycle}">{item}</f:link.typolink>
                </li>
             </f:for>
          </ul>

@@ -9,12 +9,6 @@
 <xpath> TypoTag
 ^^^^^^^^^^^^^^
 
-.. important::
-
-   TYPO3 versions lower than 7.6.20 and 8.7.3 contain a bug that prevents the functionality
-   described in this tutorial from working. Please make sure you use this versions (or higher)
-   if you want to implement the TypoTag functionality.
-
 From a developers point of view using the XPATH content object in a
 TypoScript template or in a FLUIDTEMPLATE is nice. But
 imagine you have some power users that work with XML and wantto select values
@@ -25,13 +19,13 @@ an address element for example.
 
 .. attention::
 
-   TYPO3 7.6 and 8.7 use different rich text editors (rtehtmlarea and ckeditor).
+   TYPO3 7.6 and 8.7-10.4 use different rich text editors (rtehtmlarea and ckeditor).
    The configuration therefore depends on your TYPO3 version and the RTE you use. The
    tutorial will first discuss the general setup of the TypoTag and then show the
    respective configurations for the two RTEs.
 
-Configuration for a simple input field (TYPO3 7.6 and 8.7)
-----------------------------------------------------------
+Configuration for a simple input field (TYPO3 7.6 and 8.7-10.4)
+---------------------------------------------------------------
 
 The configuration for a simple input field without RTE works the same for both TYPO3 versions
 and is also the basis for the integration of the TypoTag into the respective RTE.
@@ -156,8 +150,8 @@ This is the PageTSconfig for achieving the user element:
 Notice: It is not possible to set attributes with a user element. Therefore you will
 have to set a fixed expression and return value for each <xpath> user element you define.
 
-Configuration for ckeditor (TYPO3 8.7)
---------------------------------------
+Configuration for ckeditor (TYPO3 8.7-10.4)
+-------------------------------------------
 
 From this version onwards CKEditor is the new default RTE. Note that you can still use rtehtmlarea in TYPO3 8.7
 but it is now a separate extension in TER. The integration of the <xpath> TypoTag into CKEditor is fully backwards

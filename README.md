@@ -14,7 +14,8 @@ The documentation is at [https://docs.typo3.org/p/digicademy/cobj_xpath/master/e
 
 | Version     | TYPO3      | PHP       | Support                                 |
 | ----------- | ---------- | ----------|---------------------------------------- |
-| 1.9         | 8.7 - 9.5  | 7.2       | Features, Bugfixes, Security Updates    |
+| 1.10        | 9.5 - 10.4 | 7.2       | Features, Bugfixes, Security Updates    |
+| 1.9         | 8.7 - 9.5  | 7.2       | Bugfixes, Security Updates              |
 | 1.8         | 7.6 - 8.7  | 5.6 - 7.2 | none                                    |
 | 1.7         | 6.2 - 7.6  | 5.6 - 7.2 | none                                    |
 | 1.6         | 4.5 - 6.2  | 5.4 - 5.6 | none                                    |
@@ -24,4 +25,4 @@ The documentation is at [https://docs.typo3.org/p/digicademy/cobj_xpath/master/e
 This software is licensed under the terms of the GNU General Public License v2
 as published by the Free Software Foundation.
 
-Copyright <a href="https://orcid.org/0000-0002-0953-2818">Torsten Schrade</a> | <a href="http://www.adwmainz.de">Academy of Sciences and Literature | Mainz</a>
+Copyright <a href="https://orcid.org/0000-0002-0953-2818">Torsten Schrade</a> | <a href="http://www.adwmainz.de">Academy of Sciences and Literature | Mainz</a>

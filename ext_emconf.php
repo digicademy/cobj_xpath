@@ -5,7 +5,7 @@ $EM_CONF[$_EXTKEY] = array(
     'description' => 'Extends TypoScript with a new cObject XPATH for flexible handling of XML content.',
     'category' => 'fe',
     'shy' => 0,
-    'version' => '1.9.0',
+    'version' => '1.10.0',
     'dependencies' => '',
     'conflicts' => '',
     'priority' => '',
@@ -24,7 +24,7 @@ $EM_CONF[$_EXTKEY] = array(
     'CGLcompliance_note' => '',
     'constraints' => array(
         'depends' => array(
-            'typo3' => '8.7.0-9.5.99',
+            'typo3' => '9.5.0-10.4.99',
         ),
         'conflicts' => array(),
         'suggests' => array(

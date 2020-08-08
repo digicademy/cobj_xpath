@@ -21,13 +21,13 @@ XPATH Content Object
 		en
 
 	:Description:
-		Manual for the extension cobj_path
+		Manual for the extension cobj_xpath
 
 	:Keywords:
 		XML, XPATH
 
 	:Copyright:
-		2012-2019
+		2012-2020
 
 	:Author:
 		Torsten Schrade
