@@ -16,9 +16,9 @@
     "support": {
         "issues": "https://github.com/digicademy/cobj_xpath/issues"
     },
-    "version": "1.9.0",
+    "version": "1.10.0",
     "require": {
-        "typo3/cms-core": ">=8.7.0 || <=9.5.99",
+        "typo3/cms-core": ">=9.5.0 || <=10.4.99",
         "ext-libxml": "*",
         "ext-json": "*",
         "ext-simplexml": "*",
@@ -32,13 +32,6 @@
     "autoload": {
         "psr-4": {
           "Digicademy\\CobjXpath\\": "Classes/"
-        }
-    },
-    "extra": {
-        "typo3/class-alias-loader": {
-            "class-alias-maps": [
-                "Migrations/Code/ClassAliasMap.php"
-            ]
         }
     }
 }

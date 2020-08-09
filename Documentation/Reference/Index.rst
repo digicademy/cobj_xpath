@@ -9,7 +9,12 @@
 Reference
 ---------
 
-This section gives an overview on all TypoScript properties of the XPATH content object. 
+This section gives an overview on all TypoScript properties of the XPATH content object.
+
+.. attention::
+
+   In TYPO3 10.4 the FILE TypoScript object was removed. You can use a FLUIDTEMPLATE
+   cObject instead. In respect to TYPO3 9.5 the deprecated FILE cObject is still supported.
 
 .. container:: table-row
 
@@ -21,7 +26,7 @@ This section gives an overview on all TypoScript properties of the XPATH content
 
    Description
          This fetches the XML data from a source. Can be a XML string, a field
-         in the database, a file (path or via TypoScript FILE cObject) or an
+         in the database, a file (path or via TypoScript FLUIDTEMPLATE cObject) or an
          external resource.
 
          **Example (field):** ::
@@ -35,18 +40,17 @@ This section gives an overview on all TypoScript properties of the XPATH content
          Fetches the XML from the field 'my\_xml\_field' of the current page
          record.
 
-         **Example (stdWrap / FILE):** ::
+         **Example (stdWrap / FUIDTEMPLATE):** ::
 
             page.10 = XPATH
             page.10 {
-               source.cObject = FILE
+               source.cObject = FUIDTEMPLATE
                source.cObject.file = fileadmin/myfile.xml
                [...]
             }
 
-         This fetches the XML from a file included by TypoScript's FILE content
-         object. Important: Due to FILE's internal settings, the data can't be
-         larger than 1024kb. See TSref.
+         This fetches the XML from a file included by TypoScript's FLUIDTEMPLATE content
+         object.
 
          **Example (external):** ::
 

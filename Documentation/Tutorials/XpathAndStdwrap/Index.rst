@@ -30,12 +30,11 @@ the following XML file:
    </collection>
 
 We now want to select all CD titles and display them using alternative
-colors. Wow, that's a real usecase, isn't it? ;). We decide to load
-the source using the FILE object within our XPATH object. The XPATH
-expression for selecting all title attributes within the document is
-simply: //title. Since the titles are atomic node values, we decide
-to return our result as strings. We end up with the following
-TypoScript:
+colors. We decide to load the source using the FLUIDTEMPLATE object
+within our XPATH object. The XPATH expression for selecting all title
+attributes within the document is simply: //title. Since the titles
+are atomic node values, we decide to return our result as strings.
+We end up with the following TypoScript:
 
 ::
 
@@ -44,7 +43,7 @@ TypoScript:
 
      10 = XPATH
      10 {
-        source.cObject = FILE
+        source.cObject = FLUIDTEMPLATE
         source.cObject.file = fileadmin/xpath/collection.xml
 
         expression = //title

@@ -12,6 +12,14 @@ ChangeLog
 +----------------+---------------------------------------------------------------+
 | Version        | Changes                                                       |
 +================+===============================================================+
+| 1.10.0         | - TYPO3 compatibility: 9.5.0-10.4.99                          |
+|                |                                                               |
+|                | - Remove namespace compatibility layer                        |
+|                |                                                               |
+|                | - Refactoring for TYPO3 v10 (thanks to contributors!)         |
+|                |                                                               |
+|                | - Update manual                                               |
++----------------+---------------------------------------------------------------+
 | 1.9.0          | - TYPO3 compatibility: 8.7.0-9.5.99                           |
 |                |                                                               |
 |                | - **Important:** Extension namespace switched from            |

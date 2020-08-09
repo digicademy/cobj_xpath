@@ -4,10 +4,9 @@ if (!defined('TYPO3_MODE')) {
 }
 
 // defines content object XPATH
-$TYPO3_CONF_VARS['SC_OPTIONS']['tslib/class.tslib_content.php']['cObjTypeAndClass'][] = array(
-    0 => 'XPATH',
-    1 => 'Digicademy\CobjXpath\ContentObject\XpathContentObject',
-);
+$GLOBALS['TYPO3_CONF_VARS']['FE']['ContentObjects'] = array_merge($GLOBALS['TYPO3_CONF_VARS']['FE']['ContentObjects'], [
+    'XPATH' =>  Digicademy\CobjXpath\ContentObject\XpathContentObject::class
+]);
 
-// define example RTE preset for XPATH TypoTag in TYPO3 8.7
+// define example RTE preset for XPATH TypoTag
 $GLOBALS['TYPO3_CONF_VARS']['RTE']['Presets']['cobj_xpath'] = 'EXT:cobj_xpath/Configuration/RTE/Default.yaml';

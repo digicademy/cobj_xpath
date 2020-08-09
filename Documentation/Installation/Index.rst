@@ -14,7 +14,7 @@ Requirements
 
 - PHP with libxml and SimpleXML enabled
 
-- Supported TYPO3 versions: 8.7 – 9.5
+- Supported TYPO3 versions: 9.5 – 10.4
 
 Installation
 ^^^^^^^^^^^^
