@@ -1,5 +1,9 @@
+1.10.1
+======
+* Remove deprecated pieces from composer.json
+
 1.10.0
-=====
+======
 * Version compatibility set to 9.5.0-10.4.99
 * Remove namespace compatibility layer
 * Refactoring for TYPO3 10.4
