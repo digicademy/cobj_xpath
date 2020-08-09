@@ -98,8 +98,6 @@ class QueryViewHelper extends AbstractViewHelper
             'returnRaw' => 1
         );
 
-        $content = $this->contentObject->cObjHookObjectsArr['XPATH']->render($configuration);
-
-        return $content;
+        return $this->contentObject->cObjHookObjectsArr['XPATH']->render($configuration);
     }
 }

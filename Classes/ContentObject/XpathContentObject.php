@@ -42,7 +42,7 @@ class XpathContentObject extends AbstractContentObject
     /**
      * Renders the XPATH content object
      *
-     * @param array                 $conf  TypoScript configuration of the cObj
+     * @param array $conf TypoScript configuration of the cObj
      *
      * @return string
      */

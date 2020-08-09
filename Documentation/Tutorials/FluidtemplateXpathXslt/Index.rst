@@ -62,7 +62,7 @@ Let's have a look at the XML structure and consider some basic things:
 Let's start with a basic FLUIDTEMPLATE. Save the following to
 fileadmin/templates/Poe.html:
 
-.. code-block:: html
+::
 
    <hgroup>
       <h1>{title}</h1>
@@ -77,7 +77,7 @@ fileadmin/templates/Poe.html:
 
 Next we construct a basic XPATH cObject:
 
-.. code-block:: ts
+::
 
    lib.xpath = XPATH
    lib.xpath {
@@ -100,7 +100,7 @@ FLUIDTEMPLATE afterwards. We can just copy the library into the
 variable declaration and change the XPATH expression to match the
 values we want:
 
-.. code-block:: ts
+::
 
    page.10 = FLUIDTEMPLATE
    page.10 {
@@ -191,7 +191,7 @@ makes sense to only fill this variable when a link was clicked and the
 
 ::
 
-   [globalVar = GP : tale >= 1]
+   [request.getPageArguments().get('tale') >= 1]
    page.10.variables {
 
      tale = XSLT
@@ -333,7 +333,7 @@ To get the complete picture, here is the the full TS setup:
      }
    }
 
-   [globalVar = GP : tale >= 1]
+   [request.getPageArguments().get('tale') >= 1]
    page.10.variables {
 
      tale = XSLT

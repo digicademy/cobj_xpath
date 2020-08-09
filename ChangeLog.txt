@@ -1,3 +1,10 @@
+1.10.0
+=====
+* Version compatibility set to 9.5.0-10.4.99
+* Remove namespace compatibility layer
+* Refactoring for TYPO3 10.4
+* Update manual
+
 1.9.0
 =====
 * Version compatibility set to 8.7.0-9.5.99
