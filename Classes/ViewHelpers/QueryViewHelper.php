@@ -72,6 +72,7 @@ class QueryViewHelper extends AbstractViewHelper
         $this->registerArgument('source', 'null', 'source', false, null);
         $this->registerArgument('expression', 'string', 'expression', false, '');
         $this->registerArgument('return', 'string', 'return', false, 'string');
+        $this->registerArgument('namespace', 'string', 'Name Spaces', false, null);
     }
 
     /**
@@ -86,6 +87,7 @@ class QueryViewHelper extends AbstractViewHelper
         $source = $this->arguments['source'];
         $expression = $this->arguments['expression'];
         $return = $this->arguments['return'];
+        $namespace = $this->arguments['namespace'];
 
         if ($source === null) {
             $source = $this->renderChildren();
@@ -95,6 +97,7 @@ class QueryViewHelper extends AbstractViewHelper
             'source' => $source,
             'expression' => $expression,
             'return' => $return,
+            'registerNamespace' => $namespace,
             'returnRaw' => 1
         );
 
