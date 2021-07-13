@@ -52,7 +52,12 @@ class XpathContentObject extends AbstractContentObject
             return '';
         }
 
-        $ContentObjectRenderer = $this->getContentObjectRenderer();
+        // check which getter method for renderer is supported in the current T3 version
+        if (method_exists($this->configurationManager , "getContentObjectRenderer")) {
+            $ContentObjectRenderer = $this->getContentObjectRenderer() ;
+        } else {
+            $ContentObjectRenderer = $this->getContentObject() ;
+        }
 
         $content = '';
 
