@@ -31,5 +31,10 @@
         "psr-4": {
           "Digicademy\\CobjXpath\\": "Classes/"
         }
+    },
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "cobj_xpath"
+        }
     }
 }
